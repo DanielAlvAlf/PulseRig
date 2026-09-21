@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estadísticas · PulseRig</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="fondo-ambiente" data-estado="atencion">
+    <div class="fondo-ambiente__estrellas fondo-ambiente__estrellas--lejos"></div>
+    <div class="fondo-ambiente__estrellas fondo-ambiente__estrellas--cerca"></div>
+    <div class="fondo-ambiente__brillo"></div>
+  </div>
+  <div class="contenido">
+
+    <!-- ===== CABECERA ===== -->
+    <header class="menu-principal">
+      <div class="contenedor">
+        <a href="../index.html" class="marca">
+          <span class="marca__punto"></span>
+          PulseRig
+        </a>
+        <button class="menu-toggle" type="button" data-toggle="collapse" data-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+          &#9776;
+        </button>
+        <nav class="menu-grupo collapse" id="menuPrincipal">
+          <ul class="menu-enlaces">
+            <li><a href="equipos.html">Mis equipos</a></li>
+            <li><a href="almacen.html">Almacén</a></li>
+            <li><a href="catalogo.html">Catálogo</a></li>
+            <li><a href="outlet.html">Outlet</a></li>
+            <li><a href="estadisticas.html" aria-current="page">Estadísticas</a></li>
+          </ul>
+          <div class="menu-acceso">
+            <span class="menu-saludo">Hola, Daniel</span>
+            <a href="../index.html" class="btn btn-secundario">Cerrar sesión</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- ===== FIN CABECERA ===== -->
+
+    <main>
+      <div class="contenedor">
+
+        <div class="cabecera-pagina">
+          <div class="cabecera-pagina__titulos">
+            <h1>Estadísticas</h1>
+            <p class="cabecera-pagina__resumen">Panorama general de tus 3 equipos registrados</p>
+          </div>
+        </div>
+
+        <div class="rejilla-resumen">
+          <article class="tarjeta">
+            <p class="etiqueta-dato">Garantías próximas a caducar</p>
+            <p class="tarjeta-resumen__valor cifra">2</p>
+          </article>
+          <article class="tarjeta">
+            <p class="etiqueta-dato">Mantenimientos pendientes</p>
+            <p class="tarjeta-resumen__valor cifra">2</p>
+          </article>
+          <article class="tarjeta">
+            <p class="etiqueta-dato">Health Score medio</p>
+            <p class="tarjeta-resumen__valor cifra">57 / 100</p>
+          </article>
+        </div>
+
+        <h2 style="margin-bottom: var(--espacio-md);">Detalle por equipo</h2>
+        <div class="tabla-contenedor">
+          <table class="tabla-estadisticas">
+            <thead>
+              <tr>
+                <th>Equipo</th>
+                <th>Tipo</th>
+                <th>Health Score</th>
+                <th>Último mantenimiento</th>
+                <th>Garantías activas</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="nombre-equipo">Torre principal</td>
+                <td>Torre</td>
+                <td class="cifra">85</td>
+                <td class="cifra">hace 12 días</td>
+                <td class="cifra">2</td>
+                <td><span class="badge-estado badge-sano">Sano</span></td>
+              </tr>
+              <tr>
+                <td class="nombre-equipo">Portátil de trabajo</td>
+                <td>Portátil</td>
+                <td class="cifra">54</td>
+                <td class="cifra">hace 94 días</td>
+                <td class="cifra">0</td>
+                <td><span class="badge-estado badge-atencion">Atención</span></td>
+              </tr>
+              <tr>
+                <td class="nombre-equipo">Servidor casero</td>
+                <td>Servidor</td>
+                <td class="cifra">32</td>
+                <td class="cifra">hace 210 días</td>
+                <td class="cifra">0</td>
+                <td><span class="badge-estado badge-critico">Crítico</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- ===== PIE ===== -->
+    <footer class="pie-pagina">
+      <div class="contenedor">
+        <p>PulseRig · Daniel Álvarez Alfonso</p>
+        <a href="publico.html">Ver ficha pública de ejemplo</a>
+      </div>
+    </footer>
+    <!-- ===== FIN PIE ===== -->
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

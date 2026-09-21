@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Torre principal · Ficha pública · PulseRig</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="fondo-ambiente" data-estado="sano">
+    <div class="fondo-ambiente__estrellas fondo-ambiente__estrellas--lejos"></div>
+    <div class="fondo-ambiente__estrellas fondo-ambiente__estrellas--cerca"></div>
+    <div class="fondo-ambiente__brillo"></div>
+  </div>
+  <div class="contenido">
+
+    <main class="widget-publico">
+      <div class="tarjeta widget-publico__tarjeta tarjeta--estado-sano">
+        <div class="gauge" style="--puntuacion:85; --color-gauge: var(--sano);">
+          <div class="gauge__interior">
+            <span class="gauge__puntuacion cifra">85</span>
+            <span class="gauge__max">/100</span>
+          </div>
+        </div>
+        <h3>Torre principal</h3>
+        <div style="margin-top: var(--espacio-sm);">
+          <span class="badge-estado badge-sano">Sano</span>
+        </div>
+        <a href="../index.html" class="widget-publico__enlace">Generado con PulseRig &rarr;</a>
+      </div>
+    </main>
+
+  </div>
+</body>
+</html>

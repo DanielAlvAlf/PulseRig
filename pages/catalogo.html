@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo · PulseRig</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="fondo-ambiente" data-estado="sano">
+    <div class="fondo-ambiente__estrellas fondo-ambiente__estrellas--lejos"></div>
+    <div class="fondo-ambiente__estrellas fondo-ambiente__estrellas--cerca"></div>
+    <div class="fondo-ambiente__brillo"></div>
+  </div>
+  <div class="contenido">
+
+    <!-- ===== CABECERA ===== -->
+    <header class="menu-principal">
+      <div class="contenedor">
+        <a href="../index.html" class="marca">
+          <span class="marca__punto"></span>
+          PulseRig
+        </a>
+        <button class="menu-toggle" type="button" data-toggle="collapse" data-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+          &#9776;
+        </button>
+        <nav class="menu-grupo collapse" id="menuPrincipal">
+          <ul class="menu-enlaces">
+            <li><a href="equipos.html">Mis equipos</a></li>
+            <li><a href="almacen.html">Almacén</a></li>
+            <li><a href="catalogo.html" aria-current="page">Catálogo</a></li>
+            <li><a href="outlet.html">Outlet</a></li>
+            <li><a href="estadisticas.html">Estadísticas</a></li>
+          </ul>
+          <div class="menu-acceso">
+            <span class="menu-saludo">Hola, Daniel</span>
+            <a href="../index.html" class="btn btn-secundario">Cerrar sesión</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- ===== FIN CABECERA ===== -->
+
+    <main>
+      <div class="contenedor">
+
+        <div class="cabecera-pagina">
+          <div class="cabecera-pagina__titulos">
+            <h1>Catálogo de componentes</h1>
+            <p class="cabecera-pagina__resumen">Componentes de referencia para planificar tu próxima compra</p>
+          </div>
+        </div>
+
+        <div class="buscador">
+          <div class="buscador__campo">
+            <label class="etiqueta-campo" for="buscar">Buscar</label>
+            <input class="campo" type="search" id="buscar" name="buscar" placeholder="Nombre, marca o modelo…">
+          </div>
+          <div class="filtros__toggle">
+            <button type="button" class="btn btn-secundario" data-toggle="collapse" data-target="#panelFiltros" aria-expanded="false" aria-controls="panelFiltros">
+              Filtrar
+            </button>
+          </div>
+        </div>
+
+        <div class="catalogo__layout">
+
+          <aside class="catalogo__filtros">
+            <form class="filtros__panel collapse" id="panelFiltros" action="#">
+              <!-- TODO fase 2: enviar a ... -->
+              <div class="grupo-campo">
+                <label class="etiqueta-campo" for="filtro-tipo">Tipo</label>
+                <select class="campo" id="filtro-tipo" name="tipo">
+                  <option value="">Todos</option>
+                  <option value="cpu">CPU</option>
+                  <option value="gpu">GPU</option>
+                  <option value="ram">RAM</option>
+                  <option value="almacenamiento">Almacenamiento</option>
+                  <option value="placa_base">Placa base</option>
+                  <option value="fuente">Fuente</option>
+                  <option value="refrigeracion">Refrigeración</option>
+                  <option value="otro">Otro</option>
+                </select>
+              </div>
+              <div class="grupo-campo">
+                <label class="etiqueta-campo" for="filtro-marca">Marca</label>
+                <select class="campo" id="filtro-marca" name="marca">
+                  <option value="">Todas</option>
+                  <option value="amd">AMD</option>
+                  <option value="nvidia">NVIDIA</option>
+                  <option value="corsair">Corsair</option>
+                  <option value="samsung">Samsung</option>
+                  <option value="asus">ASUS</option>
+                </select>
+              </div>
+              <div class="grupo-campo">
+                <label class="etiqueta-campo" for="filtro-precio-min">Precio mínimo</label>
+                <input class="campo" type="number" id="filtro-precio-min" name="precio_min" min="0" step="1" placeholder="0">
+              </div>
+              <div class="grupo-campo">
+                <label class="etiqueta-campo" for="filtro-precio-max">Precio máximo</label>
+                <input class="campo" type="number" id="filtro-precio-max" name="precio_max" min="0" step="1" placeholder="600">
+              </div>
+              <button type="submit" class="btn btn-primario btn-ancho-completo">Aplicar filtros</button>
+            </form>
+          </aside>
+
+          <div class="catalogo__resultados">
+            <div class="rejilla">
+
+              <article class="tarjeta">
+                <div class="sin-imagen" style="margin-bottom: var(--espacio-md);">Sin imagen</div>
+                <div class="tarjeta__cabecera">
+                  <div class="tarjeta__cabecera-titulos">
+                    <h3>AMD Ryzen 7 7800X3D</h3>
+                    <p class="texto-pequeno">CPU</p>
+                  </div>
+                </div>
+                <div class="tarjeta__cuerpo">
+                  <div class="tarjeta__fila">
+                    <span class="tarjeta__fila-etiqueta">Especificaciones</span>
+                    <span class="tarjeta__fila-valor">8 núcleos / 16 hilos · 5.0 GHz</span>
+                  </div>
+                  <div class="tarjeta__fila">
+                    <span class="tarjeta__fila-etiqueta">Precio orientativo</span>
+                    <span class="tarjeta__fila-valor cifra">399 €</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="tarjeta">
+                <div class="sin-imagen" style="margin-bottom: var(--espacio-md);">Sin imagen</div>
+                <div class="tarjeta__cabecera">
+                  <div class="tarjeta__cabecera-titulos">
+                    <h3>NVIDIA RTX 4070 Super</h3>
+                    <p class="texto-pequeno">GPU</p>
+                  </div>
+                </div>
+                <div class="tarjeta__cuerpo">
+                  <div class="tarjeta__fila">
+                    <span class="tarjeta__fila-etiqueta">Especificaciones</span>
+                    <span class="tarjeta__fila-valor">12 GB GDDR6X</span>
+                  </div>
+                  <div class="tarjeta__fila">
+                    <span class="tarjeta__fila-etiqueta">Precio orientativo</span>
+                    <span class="tarjeta__fila-valor cifra">599 €</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="tarjeta">
+                <div class="sin-imagen" style="margin-bottom: var(--espacio-md);">Sin imagen</div>
+                <div class="tarjeta__cabecera">
+                  <div class="tarjeta__cabecera-titulos">
+                    <h3>Corsair Vengeance 32GB DDR5</h3>
+                    <p class="texto-pequeno">RAM</p>
+                  </div>
+                </div>
+                <div class="tarjeta__cuerpo">
+                  <div class="tarjeta__fila">
+                    <span class="tarjeta__fila-etiqueta">Especificaciones</span>
+                    <span class="tarjeta__fila-valor">2×16 GB · 6000 MHz</span>
+                  </div>
+                  <div class="tarjeta__fila">
+                    <span class="tarjeta__fila-etiqueta">Precio orientativo</span>
+                    <span class="tarjeta__fila-valor cifra">129 €</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="tarjeta">
+                <div class="sin-imagen" style="margin-bottom: var(--espacio-md);">Sin imagen</div>
+                <div class="tarjeta__cabecera">
+                  <div class="tarjeta__cabecera-titulos">
+                    <h3>Samsung 990 Pro 2TB</h3>
+                    <p class="texto-pequeno">Almacenamiento</p>
+                  </div>
+                </div>
+                <div class="tarjeta__cuerpo">
+                  <div class="tarjeta__fila">
+                    <span class="tarjeta__fila-etiqueta">Especificaciones</span>
+                    <span class="tarjeta__fila-valor">NVMe PCIe 4.0</span>
+                  </div>
+                  <div class="tarjeta__fila">
+                    <span class="tarjeta__fila-etiqueta">Precio orientativo</span>
+                    <span class="tarjeta__fila-valor cifra">149 €</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="tarjeta">
+                <div class="sin-imagen" style="margin-bottom: var(--espacio-md);">Sin imagen</div>
+                <div class="tarjeta__cabecera">
+                  <div class="tarjeta__cabecera-titulos">
+                    <h3>ASUS ROG Strix B650-A</h3>
+                    <p class="texto-pequeno">Placa base</p>
+                  </div>
+                </div>
+                <div class="tarjeta__cuerpo">
+                  <div class="tarjeta__fila">
+                    <span class="tarjeta__fila-etiqueta">Especificaciones</span>
+                    <span class="tarjeta__fila-valor">AM5 · DDR5</span>
+                  </div>
+                  <div class="tarjeta__fila">
+                    <span class="tarjeta__fila-etiqueta">Precio orientativo</span>
+                    <span class="tarjeta__fila-valor cifra">219 €</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="tarjeta">
+                <div class="sin-imagen" style="margin-bottom: var(--espacio-md);">Sin imagen</div>
+                <div class="tarjeta__cabecera">
+                  <div class="tarjeta__cabecera-titulos">
+                    <h3>Corsair RM750x</h3>
+                    <p class="texto-pequeno">Fuente</p>
+                  </div>
+                </div>
+                <div class="tarjeta__cuerpo">
+                  <div class="tarjeta__fila">
+                    <span class="tarjeta__fila-etiqueta">Especificaciones</span>
+                    <span class="tarjeta__fila-valor">750 W · 80+ Gold</span>
+                  </div>
+                  <div class="tarjeta__fila">
+                    <span class="tarjeta__fila-etiqueta">Precio orientativo</span>
+                    <span class="tarjeta__fila-valor cifra">109 €</span>
+                  </div>
+                </div>
+              </article>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+    <!-- ===== PIE ===== -->
+    <footer class="pie-pagina">
+      <div class="contenedor">
+        <p>PulseRig · Daniel Álvarez Alfonso</p>
+        <a href="publico.html">Ver ficha pública de ejemplo</a>
+      </div>
+    </footer>
+    <!-- ===== FIN PIE ===== -->
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

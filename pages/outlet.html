@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outlet · PulseRig</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="fondo-ambiente" data-estado="sano">
+    <div class="fondo-ambiente__estrellas fondo-ambiente__estrellas--lejos"></div>
+    <div class="fondo-ambiente__estrellas fondo-ambiente__estrellas--cerca"></div>
+    <div class="fondo-ambiente__brillo"></div>
+  </div>
+  <div class="contenido">
+
+    <!-- ===== CABECERA ===== -->
+    <header class="menu-principal">
+      <div class="contenedor">
+        <a href="../index.html" class="marca">
+          <span class="marca__punto"></span>
+          PulseRig
+        </a>
+        <button class="menu-toggle" type="button" data-toggle="collapse" data-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+          &#9776;
+        </button>
+        <nav class="menu-grupo collapse" id="menuPrincipal">
+          <ul class="menu-enlaces">
+            <li><a href="equipos.html">Mis equipos</a></li>
+            <li><a href="almacen.html">Almacén</a></li>
+            <li><a href="catalogo.html">Catálogo</a></li>
+            <li><a href="outlet.html" aria-current="page">Outlet</a></li>
+            <li><a href="estadisticas.html">Estadísticas</a></li>
+          </ul>
+          <div class="menu-acceso">
+            <span class="menu-saludo">Hola, Daniel</span>
+            <a href="../index.html" class="btn btn-secundario">Cerrar sesión</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- ===== FIN CABECERA ===== -->
+
+    <main>
+      <div class="contenedor">
+
+        <div class="cabecera-pagina">
+          <div class="cabecera-pagina__titulos">
+            <h1>Outlet</h1>
+            <p class="cabecera-pagina__resumen">Componentes de segunda mano puestos en venta por los usuarios</p>
+          </div>
+          <a href="#" class="btn btn-primario">Publicar componente</a>
+        </div>
+
+        <div class="buscador">
+          <div class="buscador__campo">
+            <label class="etiqueta-campo" for="buscar">Buscar</label>
+            <input class="campo" type="search" id="buscar" name="buscar" placeholder="Nombre, marca o modelo…">
+          </div>
+          <div class="filtros__toggle">
+            <button type="button" class="btn btn-secundario" data-toggle="collapse" data-target="#panelFiltros" aria-expanded="false" aria-controls="panelFiltros">
+              Filtrar
+            </button>
+          </div>
+        </div>
+
+        <div class="catalogo__layout">
+
+          <aside class="catalogo__filtros">
+            <form class="filtros__panel collapse" id="panelFiltros" action="#">
+              <!-- TODO fase 2: enviar a ... -->
+              <div class="grupo-campo">
+                <label class="etiqueta-campo" for="filtro-tipo">Tipo</label>
+                <select class="campo" id="filtro-tipo" name="tipo">
+                  <option value="">Todos</option>
+                  <option value="cpu">CPU</option>
+                  <option value="gpu" selected>GPU</option>
+                  <option value="ram">RAM</option>
+                  <option value="almacenamiento">Almacenamiento</option>
+                  <option value="placa_base">Placa base</option>
+                  <option value="fuente">Fuente</option>
+                  <option value="refrigeracion">Refrigeración</option>
+                  <option value="otro">Otro</option>
+                </select>
+              </div>
+              <div class="grupo-campo">
+                <label class="etiqueta-campo" for="filtro-marca">Marca</label>
+                <select class="campo" id="filtro-marca" name="marca">
+                  <option value="">Todas</option>
+                  <option value="amd">AMD</option>
+                  <option value="nvidia">NVIDIA</option>
+                  <option value="corsair">Corsair</option>
+                  <option value="samsung">Samsung</option>
+                  <option value="asus">ASUS</option>
+                </select>
+              </div>
+              <div class="grupo-campo">
+                <label class="etiqueta-campo" for="filtro-precio-min">Precio mínimo</label>
+                <input class="campo" type="number" id="filtro-precio-min" name="precio_min" min="0" step="1" placeholder="0">
+              </div>
+              <div class="grupo-campo">
+                <label class="etiqueta-campo" for="filtro-precio-max">Precio máximo</label>
+                <input class="campo" type="number" id="filtro-precio-max" name="precio_max" min="0" step="1" placeholder="600">
+              </div>
+              <button type="submit" class="btn btn-primario btn-ancho-completo">Aplicar filtros</button>
+            </form>
+          </aside>
+
+          <div class="catalogo__resultados">
+            <div class="rejilla">
+
+              <article class="tarjeta tarjeta--estado-atencion">
+                <a href="detalle-outlet.html">
+                  <div class="sin-imagen" style="margin-bottom: var(--espacio-md);">Sin imagen</div>
+                </a>
+                <div class="tarjeta__cabecera">
+                  <div class="tarjeta__cabecera-titulos">
+                    <h3><a href="detalle-outlet.html">RTX 4070 Super</a></h3>
+                    <p class="texto-pequeno">GPU</p>
+                  </div>
+                  <span class="badge-estado badge-atencion">Atención</span>
+                </div>
+                <div class="tarjeta__cuerpo">
+                  <div class="tarjeta__fila">
+                    <span class="tarjeta__fila-etiqueta">Precio</span>
+                    <span class="tarjeta__fila-valor cifra">310 €</span>
+                  </div>
+                  <div class="tarjeta__fila">
+                    <span class="tarjeta__fila-etiqueta">Garantía restante</span>
+                    <span class="tarjeta__fila-valor cifra">Caduca en 8 días</span>
+                  </div>
+                  <div class="tarjeta__fila">
+                    <span class="tarjeta__fila-etiqueta">Publicado</span>
+                    <span class="tarjeta__fila-valor cifra">hace 3 días</span>
+                  </div>
+                </div>
+                <div class="tarjeta__acciones">
+                  <a href="detalle-outlet.html" class="btn btn-secundario">Ver anuncio</a>
+                </div>
+              </article>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+    <!-- ===== PIE ===== -->
+    <footer class="pie-pagina">
+      <div class="contenedor">
+        <p>PulseRig · Daniel Álvarez Alfonso</p>
+        <a href="publico.html">Ver ficha pública de ejemplo</a>
+      </div>
+    </footer>
+    <!-- ===== FIN PIE ===== -->
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

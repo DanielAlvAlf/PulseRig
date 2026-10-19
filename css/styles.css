@@ -381,18 +381,31 @@ main {
   text-decoration: underline;
 }
 
-/* Cabecera de página */
+/* Cabecera de página: etiqueta y título a la izquierda, botones a la
+   derecha y una línea blanca debajo, como el rótulo de un plano.
+   Estructura: <div class="cabecera-pagina">
+                 <div><p class="etiqueta-dato">…</p><h1>…</h1></div>
+                 <a class="btn">…</a>  (opcional)
+               </div> */
 .cabecera-pagina {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
   gap: var(--espacio-md);
-  margin-bottom: var(--espacio-lg);
+  padding-bottom: var(--espacio-sm);
+  margin-bottom: var(--espacio-xl);
+  border-bottom: 1.5px solid var(--hielo);
 }
 
-.cabecera-pagina__resumen {
-  color: var(--gris-frio);
-  font-size: 0.9rem;
-  margin-top: 0.3rem;
+.cabecera-pagina h1 {
+  margin-top: var(--espacio-xs);
+}
+
+.cabecera-pagina__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-sm);
 }
 
 /* Rejillas de tarjetas (mobile-first: 1 columna; se amplían en media queries) */
@@ -414,6 +427,7 @@ main {
   padding: var(--espacio-md) var(--espacio-lg);
   border: 1.5px dashed var(--atencion);
   background: var(--atencion-fondo);
+  margin-bottom: var(--espacio-xl);
 }
 
 .alerta--critica {
@@ -470,42 +484,6 @@ main {
   color: var(--critico);
   background: var(--critico-fondo);
   border-color: var(--critico-borde);
-}
-
-/* --- Anillo del Health Score (gauge) --- */
-.gauge {
-  position: relative;
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  background: conic-gradient(var(--color-gauge, var(--sano)) calc(var(--puntuacion, 0) * 3.6deg), var(--linea) 0deg);
-  flex-shrink: 0;
-}
-
-.gauge__interior {
-  position: absolute;
-  inset: 11px;
-  border-radius: 50%;
-  background: var(--panel);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.gauge__puntuacion {
-  font-family: var(--fuente-mono);
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--hielo);
-  line-height: 1;
-}
-
-.gauge__max {
-  font-family: var(--fuente-mono);
-  font-size: 0.65rem;
-  color: var(--gris-frio);
-  margin-top: 0.15rem;
 }
 
 /* --- Tarjeta --- */
@@ -708,14 +686,25 @@ select.campo {
   object-fit: cover;
 }
 
+/* Hueco sin foto: recuadro discontinuo con un aspa, como en los planos */
 .sin-imagen {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--panel-alt);
+  border: 1.5px dashed var(--linea);
+  background:
+    linear-gradient(to top right, transparent calc(50% - 1px), var(--linea) 50%, transparent calc(50% + 1px)),
+    linear-gradient(to bottom right, transparent calc(50% - 1px), var(--linea) 50%, transparent calc(50% + 1px));
+}
+
+/* El texto lleva fondo para que el aspa no lo cruce */
+.sin-imagen span {
+  padding: 2px var(--espacio-sm);
+  background: var(--grafito);
+  font-family: var(--fuente-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
   color: var(--gris-frio);
-  font-size: 0.85rem;
-  text-align: center;
 }
 
 /* --- Modal de confirmación --- */
@@ -769,6 +758,9 @@ select.campo {
   display: none;
   flex-direction: column;
   gap: var(--espacio-md);
+  padding: var(--espacio-lg);
+  border: var(--borde);
+  background: var(--panel-calco);
 }
 
 .filtros__panel.show {
@@ -1014,17 +1006,19 @@ select.campo {
 .pagina-acceso {
   display: flex;
   justify-content: center;
-  padding: var(--espacio-seccion) 0;
+  padding-block: var(--espacio-seccion); /* solo arriba y abajo: los lados los pone .contenedor */
 }
 
 .pagina-acceso__caja {
   width: 100%;
-  max-width: 380px;
+  max-width: 420px;
+  padding: var(--espacio-xl);
+  border: 1.5px solid var(--hielo);
+  background: var(--panel-calco);
 }
 
 .pagina-acceso__caja h1 {
-  font-size: 1.6rem;
-  margin-bottom: var(--espacio-xs);
+  margin: var(--espacio-xs) 0;
 }
 
 .pagina-acceso__subtitulo {
@@ -1047,14 +1041,8 @@ select.campo {
 
 /* --- equipos.html ------------------------------------------------------
    La lista es un .monitor (portada) con un canal por equipo, ordenados de
-   peor a mejor Health Score. Reutiliza .cabecera-ficha (detalle-equipo).
+   peor a mejor Health Score. 
    ------------------------------------------------------------------------ */
-.lista-equipos {
-  display: flex;
-  flex-direction: column;
-  gap: var(--espacio-xl);
-}
-
 /* Cada equipo es un enlace a su ficha. El data-estado va en el div de dentro
    para que el color de hover de Bootstrap no lo pise */
 .equipo-canal {
@@ -1156,25 +1144,9 @@ select.campo {
   gap: var(--espacio-seccion);
 }
 
-/* Cabecera: título del plano a la izquierda, botones a la derecha */
-.cabecera-ficha {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: var(--espacio-md);
-  padding-bottom: var(--espacio-sm);
-  border-bottom: 1.5px solid var(--hielo);
-}
-
-.cabecera-ficha h1 {
-  margin-top: var(--espacio-xs);
-}
-
-.cabecera-ficha__acciones {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--espacio-sm);
+/* Aquí el hueco bajo la cabecera ya lo pone el gap de .ficha */
+.ficha .cabecera-pagina {
+  margin-bottom: 0;
 }
 
 /* Resumen: despiece y panel de salud lado a lado (se apilan si no caben) */
@@ -1332,11 +1304,9 @@ select.campo {
   gap: var(--espacio-lg);
 }
 
+/* El recuadro lo lleva .filtros__panel: si está plegado (móvil) no queda una caja vacía */
 .catalogo__filtros {
-  background: var(--panel);
-  border: var(--borde);
-  border-radius: var(--radio);
-  padding: var(--espacio-lg);
+  min-width: 0;
 }
 
 .catalogo__resultados {
@@ -1356,9 +1326,10 @@ select.campo {
 }
 
 .detalle-outlet__precio {
-  font-family: var(--fuente-mono);
-  font-size: 1.8rem;
-  font-weight: 600;
+  font-family: var(--fuente-titulos);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
   color: var(--hielo);
 }
 
@@ -1375,59 +1346,72 @@ select.campo {
   border-top: var(--borde);
 }
 
-/* --- estadisticas.html --- */
-.rejilla-resumen {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--espacio-md);
+/* --- estadisticas.html ------------------------------------------------
+   Reutiliza .cajetin (portada) para las cifras y .tabla-plano para la tabla.
+   ------------------------------------------------------------------------ */
+
+/* Cajetín con cifras grandes; en móvil las celdas se apilan */
+.cajetin--cifras {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   margin-bottom: var(--espacio-seccion);
 }
 
-.tarjeta-resumen__valor {
-  font-family: var(--fuente-mono);
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-top: var(--espacio-sm);
+.cajetin--cifras .cajetin__puntuacion {
+  font-size: 3rem;
 }
 
-.tabla-contenedor {
-  overflow-x: auto;
-  border: var(--borde);
-  border-radius: var(--radio);
+/* Escala del Health Score: barra 0-100 con una marca por equipo.
+   Los tramos miden lo mismo que su rango (40, 30 y 31 puntos) y cada
+   marca se coloca con left: <puntuación>% */
+.escala {
+  position: relative;
+  margin: var(--espacio-xl) 0 var(--espacio-seccion);
+  padding-top: 2.2rem;  /* sitio para las etiquetas de las marcas */
 }
 
-.tabla-estadisticas {
-  min-width: 640px;
+.escala__barra {
+  display: grid;
+  grid-template-columns: 40fr 30fr 31fr;
+  height: 18px;
+  border: 1.5px solid var(--hielo);
 }
 
-.tabla-estadisticas th,
-.tabla-estadisticas td {
-  text-align: left;
-  padding: 0.75rem var(--espacio-md);
-  border-bottom: var(--borde);
-  font-size: 0.9rem;
+.escala__barra span {
+  background: currentColor;
+  opacity: 0.85;
 }
 
-.tabla-estadisticas thead th {
-  background: var(--panel-alt);
-  color: var(--gris-frio);
-  font-family: var(--fuente-mono);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  font-weight: 500;
+.escala__barra span + span {
+  border-left: 1.5px solid var(--hielo);
 }
 
-.tabla-estadisticas tbody tr:last-child td {
-  border-bottom: none;
+.escala__marca {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  text-align: center;
+  white-space: nowrap;
 }
 
-.tabla-estadisticas td.cifra {
-  color: var(--hielo);
+/* Rayita que baja de la etiqueta hasta la barra */
+.escala__marca::after {
+  content: "";
+  display: block;
+  width: 1.5px;
+  height: 0.7rem;
+  margin: 0 auto;
+  background: var(--hielo);
 }
 
-.tabla-estadisticas .nombre-equipo {
-  font-weight: 600;
+/* En móvil no caben los nombres: solo se ve la cifra (ver media queries) */
+.escala__nombre {
+  display: none;
+}
+
+.escala__leyenda {
+  display: grid;
+  grid-template-columns: 40fr 30fr 31fr;
+  margin-top: var(--espacio-xs);
 }
 
 /* --- publico.html --- */
@@ -1441,17 +1425,16 @@ select.campo {
 
 .widget-publico__tarjeta {
   width: 100%;
-  max-width: 320px;
-  text-align: center;
+  max-width: 340px;
 }
 
-.widget-publico__tarjeta .gauge {
-  margin: 0 auto var(--espacio-md);
+.widget-publico__pie {
+  padding: var(--espacio-md) var(--espacio-lg);
 }
 
 .widget-publico__enlace {
   display: inline-block;
-  margin-top: var(--espacio-lg);
+  margin-top: var(--espacio-xs);
   font-size: 0.8rem;
   color: var(--gris-frio);
 }
@@ -1466,18 +1449,12 @@ select.campo {
 
 /* Tablet: 768px en adelante */
 @media (min-width: 768px) {
-  .cabecera-pagina {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  .escala__nombre {
+    display: inline;
   }
 
   .rejilla {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .rejilla-resumen {
-    grid-template-columns: repeat(3, 1fr);
   }
 
   .par-campos {
@@ -1589,8 +1566,10 @@ select.campo {
     display: none;
   }
 
-  .filtros__panel {
-    display: flex;
+  /* En escritorio los filtros se ven siempre. Hace falta !important para
+     ganar a la regla .collapse de Bootstrap (igual que en .menu-grupo) */
+  .filtros__panel.collapse {
+    display: flex !important;
   }
 
   .detalle-outlet__imagen {

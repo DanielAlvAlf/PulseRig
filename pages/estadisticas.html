@@ -46,30 +46,52 @@
       <div class="contenedor">
 
         <div class="cabecera-pagina">
-          <div class="cabecera-pagina__titulos">
+          <div>
+            <p class="etiqueta-dato">Panorama general · 3 equipos registrados</p>
             <h1>Estadísticas</h1>
-            <p class="cabecera-pagina__resumen">Panorama general de tus 3 equipos registrados</p>
           </div>
         </div>
 
-        <div class="rejilla-resumen">
-          <article class="tarjeta">
-            <p class="etiqueta-dato">Garantías próximas a caducar</p>
-            <p class="tarjeta-resumen__valor cifra">2</p>
-          </article>
-          <article class="tarjeta">
-            <p class="etiqueta-dato">Mantenimientos pendientes</p>
-            <p class="tarjeta-resumen__valor cifra">2</p>
-          </article>
-          <article class="tarjeta">
-            <p class="etiqueta-dato">Health Score medio</p>
-            <p class="tarjeta-resumen__valor cifra">57 / 100</p>
-          </article>
+        <!-- ===== CIFRAS DEL RESUMEN (cajetín) ===== -->
+        <div class="cajetin cajetin--cifras">
+          <div data-estado="atencion">
+            <span class="etiqueta-dato">Garantías próximas a caducar</span>
+            <strong class="cajetin__puntuacion">2</strong>
+          </div>
+          <div data-estado="critico">
+            <span class="etiqueta-dato">Mantenimientos pendientes</span>
+            <strong class="cajetin__puntuacion">2</strong>
+          </div>
+          <div data-estado="atencion">
+            <span class="etiqueta-dato">Health Score medio</span>
+            <strong class="cajetin__puntuacion">57 / 100</strong>
+          </div>
         </div>
 
+        <!-- ===== ESCALA: dónde cae cada equipo entre 0 y 100 ===== -->
+        <h2>Escala del Health Score</h2>
+        <div class="escala">
+          <!-- Cada marca se coloca con left igual a su puntuación -->
+          <span class="escala__marca etiqueta-dato" style="left: 32%;"><span class="escala__nombre">Servidor · </span>32</span>
+          <span class="escala__marca etiqueta-dato" style="left: 54%;"><span class="escala__nombre">Portátil · </span>54</span>
+          <span class="escala__marca etiqueta-dato" style="left: 85%;"><span class="escala__nombre">Torre · </span>85</span>
+
+          <div class="escala__barra" aria-hidden="true">
+            <span data-estado="critico"></span>
+            <span data-estado="atencion"></span>
+            <span data-estado="sano"></span>
+          </div>
+          <div class="escala__leyenda etiqueta-dato">
+            <span data-estado="critico">0–39 crítico</span>
+            <span data-estado="atencion">40–69 atención</span>
+            <span data-estado="sano">70–100 sano</span>
+          </div>
+        </div>
+
+        <!-- ===== TABLA POR EQUIPO ===== -->
         <h2 style="margin-bottom: var(--espacio-md);">Detalle por equipo</h2>
-        <div class="tabla-contenedor">
-          <table class="tabla-estadisticas">
+        <div class="tabla-plano">
+          <table>
             <thead>
               <tr>
                 <th>Equipo</th>
@@ -82,26 +104,26 @@
             </thead>
             <tbody>
               <tr>
-                <td class="nombre-equipo">Torre principal</td>
+                <td><strong>Torre principal</strong></td>
                 <td>Torre</td>
-                <td class="cifra">85</td>
+                <td class="cifra" data-estado="sano">85</td>
                 <td class="cifra">hace 12 días</td>
                 <td class="cifra">2</td>
                 <td><span class="badge-estado badge-sano">Sano</span></td>
               </tr>
               <tr>
-                <td class="nombre-equipo">Portátil de trabajo</td>
+                <td><strong>Portátil de trabajo</strong></td>
                 <td>Portátil</td>
-                <td class="cifra">54</td>
-                <td class="cifra">hace 94 días</td>
+                <td class="cifra" data-estado="atencion">54</td>
+                <td class="cifra" data-estado="atencion">hace 94 días</td>
                 <td class="cifra">0</td>
                 <td><span class="badge-estado badge-atencion">Atención</span></td>
               </tr>
               <tr>
-                <td class="nombre-equipo">Servidor casero</td>
+                <td><strong>Servidor casero</strong></td>
                 <td>Servidor</td>
-                <td class="cifra">32</td>
-                <td class="cifra">hace 210 días</td>
+                <td class="cifra" data-estado="critico">32</td>
+                <td class="cifra" data-estado="critico">hace 210 días</td>
                 <td class="cifra">0</td>
                 <td><span class="badge-estado badge-critico">Crítico</span></td>
               </tr>

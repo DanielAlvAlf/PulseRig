@@ -12,19 +12,19 @@
 <body>
   <div class="contenido">
 
+    <!-- FICHA PÚBLICA: tarjeta pequeña para compartir el estado de un equipo.
+         Reutiliza el panel de salud de detalle-equipo.html. -->
     <main class="widget-publico">
-      <div class="tarjeta widget-publico__tarjeta tarjeta--estado-sano">
-        <div class="gauge" style="--puntuacion:85; --color-gauge: var(--sano);">
-          <div class="gauge__interior">
-            <span class="gauge__puntuacion cifra">85</span>
-            <span class="gauge__max">/100</span>
-          </div>
+      <div class="panel-salud widget-publico__tarjeta">
+        <div class="panel-salud__cabecera" data-estado="sano">
+          <p class="etiqueta-dato">Health Score</p>
+          <p><span class="panel-salud__cifra">85</span> <span class="etiqueta-dato">/ 100 · Sano</span></p>
+          <svg viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path class="pulso pulso--lento" d="M0 24h40l6-4 6 4h10l5 10 8-30 8 26 5-6h22l8-5 8 5h44l6-4 6 4h10l5 10 8-30 8 26 5-6h22l8-5 8 5h34"></path></svg>
         </div>
-        <h3>Torre principal</h3>
-        <div style="margin-top: var(--espacio-sm);">
-          <span class="badge-estado badge-sano">Sano</span>
+        <div class="widget-publico__pie">
+          <h3>Torre principal</h3>
+          <a href="../index.html" class="widget-publico__enlace">Generado con PulseRig &rarr;</a>
         </div>
-        <a href="../index.html" class="widget-publico__enlace">Generado con PulseRig &rarr;</a>
       </div>
     </main>
 

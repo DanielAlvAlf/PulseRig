@@ -42,132 +42,126 @@
     </header>
     <!-- ===== FIN CABECERA ===== -->
 
+    <!--
+      MIS EQUIPOS · Rediseño "hoja de calco"
+      Bloques, de arriba abajo:
+        1. Cabecera: título y botón para añadir un equipo.
+        2. Aviso con los equipos que necesitan atención.
+        3. Monitor: un canal por equipo, ordenados de peor a mejor Health Score.
+           Cada canal enlaza a la ficha del equipo.
+      Los colores de estado se ponen con data-estado (ver styles.css, ESTADOS).
+    -->
     <main>
-      <div class="contenedor">
+      <div class="contenedor lista-equipos">
 
-        <div class="cabecera-pagina">
-          <div class="cabecera-pagina__titulos">
+        <!-- ===== 1. CABECERA ===== -->
+        <div class="cabecera-ficha">
+          <div>
+            <p class="etiqueta-dato">Inventario · 3 equipos · actualizado hace 2 h</p>
             <h1>Mis equipos</h1>
-            <p class="cabecera-pagina__resumen">3 equipos registrados · actualizado hace 2 h</p>
           </div>
           <a href="#" class="btn btn-primario">+ Nuevo equipo</a>
         </div>
 
+        <!-- ===== 2. AVISO ===== -->
         <div class="alerta alerta--critica">
+          <span class="latido" data-estado="critico">●</span>
           <div>
             <p class="alerta__titulo">2 equipos necesitan atención</p>
-            <p class="alerta__texto">Servidor casero lleva 210 días sin mantenimiento y Portátil de trabajo lleva 94 días. Revisa su detalle para ponerlos al día.</p>
+            <p class="alerta__texto">Servidor casero lleva 210 días sin mantenimiento y Portátil de trabajo lleva 94 días. Están arriba del todo.</p>
           </div>
         </div>
 
-        <div class="rejilla">
+        <!-- ===== 3. MONITOR DE EQUIPOS ===== -->
+        <section class="monitor">
+          <p class="monitor__cabecera etiqueta-dato">
+            <span>Monitor · ordenado de peor a mejor</span>
+            <span>
+              <span data-estado="critico">● 1 crítico</span> ·
+              <span data-estado="atencion">● 1 atención</span> ·
+              <span data-estado="sano">● 1 sano</span>
+            </span>
+          </p>
 
-          <article class="tarjeta tarjeta--estado-sano">
-            <div class="tarjeta__cabecera">
-              <div class="tarjeta__cabecera-titulos">
-                <h3>Torre principal</h3>
-                <div class="tarjeta-equipo__tipo-fecha">
-                  <span>Torre</span>
-                  <span>Montada en marzo de 2024</span>
+          <!-- Servidor casero -->
+          <a href="detalle-equipo.html" class="equipo-canal">
+            <div data-estado="critico">
+              <div class="equipo-canal__fila">
+                <!-- Dibujo de servidor: caja con tres bahías -->
+                <svg class="equipo-canal__icono" viewBox="0 0 48 48" aria-hidden="true">
+                  <rect x="6" y="8" width="36" height="32"></rect>
+                  <line x1="6" y1="18" x2="42" y2="18"></line>
+                  <line x1="6" y1="29" x2="42" y2="29"></line>
+                </svg>
+                <div>
+                  <p class="equipo-canal__nombre">Servidor casero</p>
+                  <p class="etiqueta-dato">Servidor · montado 07/2021</p>
                 </div>
+                <svg class="pulso-caja" viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true"><path class="pulso" d="M0 34h90l4 6 6-20 6 18 4-4h120l4 6 6-14 6 12 4-4h50"></path></svg>
+                <p class="monitor__lectura"><span class="monitor__cifra">32</span> Crítico</p>
               </div>
-              <div class="gauge gauge--reducido" style="--puntuacion:85; --color-gauge: var(--sano);">
-                <div class="gauge__interior">
-                  <span class="gauge__puntuacion cifra">85</span>
-                </div>
-              </div>
+              <p class="equipo-canal__datos">
+                <span>Componentes <b>4</b></span>
+                <span>Garantías activas <b>0</b></span>
+                <span>Último mantenimiento <b data-estado="critico">hace 210 días</b></span>
+                <span class="equipo-canal__ver">Ver ficha →</span>
+              </p>
             </div>
-            <div class="tarjeta__cuerpo">
-              <div class="tarjeta__fila">
-                <span class="tarjeta__fila-etiqueta">Componentes</span>
-                <span class="tarjeta__fila-valor cifra">6</span>
-              </div>
-              <div class="tarjeta__fila">
-                <span class="tarjeta__fila-etiqueta">Garantías activas</span>
-                <span class="tarjeta__fila-valor cifra">2</span>
-              </div>
-              <div class="tarjeta__fila">
-                <span class="tarjeta__fila-etiqueta">Último mantenimiento</span>
-                <span class="tarjeta__fila-valor cifra">hace 12 días</span>
-              </div>
-            </div>
-            <div class="tarjeta__acciones">
-              <span class="badge-estado badge-sano">Sano</span>
-              <a href="detalle-equipo.html" class="btn btn-secundario">Ver detalle</a>
-            </div>
-          </article>
+          </a>
 
-          <article class="tarjeta tarjeta--estado-atencion">
-            <div class="tarjeta__cabecera">
-              <div class="tarjeta__cabecera-titulos">
-                <h3>Portátil de trabajo</h3>
-                <div class="tarjeta-equipo__tipo-fecha">
-                  <span>Portátil</span>
-                  <span>Montado en enero de 2022</span>
+          <!-- Portátil de trabajo -->
+          <a href="detalle-equipo.html" class="equipo-canal">
+            <div data-estado="atencion">
+              <div class="equipo-canal__fila">
+                <!-- Dibujo de portátil: pantalla y base -->
+                <svg class="equipo-canal__icono" viewBox="0 0 48 48" aria-hidden="true">
+                  <rect x="10" y="10" width="28" height="20"></rect>
+                  <path d="M4 36h40l-4-6H8z"></path>
+                </svg>
+                <div>
+                  <p class="equipo-canal__nombre">Portátil de trabajo</p>
+                  <p class="etiqueta-dato">Portátil · montado 01/2022</p>
                 </div>
+                <svg class="pulso-caja" viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true"><path class="pulso pulso--rapido" d="M0 34h22l5 12 7-36 7 32 5-6h12l5 12 7-30 7 26 4-6h30l6-4 6 4h8l5 12 7-38 7 34 5-8h16l5 12 7-28 7 24 4-6h40"></path></svg>
+                <p class="monitor__lectura"><span class="monitor__cifra">54</span> Atención</p>
               </div>
-              <div class="gauge gauge--reducido" style="--puntuacion:54; --color-gauge: var(--atencion);">
-                <div class="gauge__interior">
-                  <span class="gauge__puntuacion cifra">54</span>
-                </div>
-              </div>
+              <p class="equipo-canal__datos">
+                <span>Componentes <b>5</b></span>
+                <span>Garantías activas <b>0</b></span>
+                <span>Último mantenimiento <b data-estado="atencion">hace 94 días</b></span>
+                <span class="equipo-canal__ver">Ver ficha →</span>
+              </p>
             </div>
-            <div class="tarjeta__cuerpo">
-              <div class="tarjeta__fila">
-                <span class="tarjeta__fila-etiqueta">Componentes</span>
-                <span class="tarjeta__fila-valor cifra">5</span>
-              </div>
-              <div class="tarjeta__fila">
-                <span class="tarjeta__fila-etiqueta">Garantías activas</span>
-                <span class="tarjeta__fila-valor cifra">0</span>
-              </div>
-              <div class="tarjeta__fila">
-                <span class="tarjeta__fila-etiqueta">Último mantenimiento</span>
-                <span class="tarjeta__fila-valor cifra">hace 94 días</span>
-              </div>
-            </div>
-            <div class="tarjeta__acciones">
-              <span class="badge-estado badge-atencion">Atención</span>
-              <a href="detalle-equipo.html" class="btn btn-secundario">Ver detalle</a>
-            </div>
-          </article>
+          </a>
 
-          <article class="tarjeta tarjeta--estado-critico">
-            <div class="tarjeta__cabecera">
-              <div class="tarjeta__cabecera-titulos">
-                <h3>Servidor casero</h3>
-                <div class="tarjeta-equipo__tipo-fecha">
-                  <span>Servidor</span>
-                  <span>Montado en julio de 2021</span>
+          <!-- Torre principal -->
+          <a href="detalle-equipo.html" class="equipo-canal">
+            <div data-estado="sano">
+              <div class="equipo-canal__fila">
+                <!-- Dibujo de torre: caja alta con ventilador -->
+                <svg class="equipo-canal__icono" viewBox="0 0 48 48" aria-hidden="true">
+                  <rect x="12" y="4" width="24" height="40"></rect>
+                  <circle cx="24" cy="30" r="6"></circle>
+                  <line x1="16" y1="10" x2="32" y2="10"></line>
+                  <line x1="16" y1="15" x2="32" y2="15"></line>
+                </svg>
+                <div>
+                  <p class="equipo-canal__nombre">Torre principal</p>
+                  <p class="etiqueta-dato">Torre · montada 03/2024</p>
                 </div>
+                <svg class="pulso-caja" viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true"><path class="pulso pulso--lento" d="M0 34h40l6-4 6 4h10l5 12 8-40 8 36 5-8h22l8-6 8 6h44l6-4 6 4h10l5 12 8-40 8 36 5-8h22l8-6 8 6h34"></path></svg>
+                <p class="monitor__lectura"><span class="monitor__cifra">85</span> Sano</p>
               </div>
-              <div class="gauge gauge--reducido" style="--puntuacion:32; --color-gauge: var(--critico);">
-                <div class="gauge__interior">
-                  <span class="gauge__puntuacion cifra">32</span>
-                </div>
-              </div>
+              <p class="equipo-canal__datos">
+                <span>Componentes <b>6</b></span>
+                <span>Garantías activas <b>2</b></span>
+                <span>Último mantenimiento <b>hace 12 días</b></span>
+                <span class="equipo-canal__ver">Ver ficha →</span>
+              </p>
             </div>
-            <div class="tarjeta__cuerpo">
-              <div class="tarjeta__fila">
-                <span class="tarjeta__fila-etiqueta">Componentes</span>
-                <span class="tarjeta__fila-valor cifra">4</span>
-              </div>
-              <div class="tarjeta__fila">
-                <span class="tarjeta__fila-etiqueta">Garantías activas</span>
-                <span class="tarjeta__fila-valor cifra">0</span>
-              </div>
-              <div class="tarjeta__fila">
-                <span class="tarjeta__fila-etiqueta">Último mantenimiento</span>
-                <span class="tarjeta__fila-valor cifra">hace 210 días</span>
-              </div>
-            </div>
-            <div class="tarjeta__acciones">
-              <span class="badge-estado badge-critico">Crítico</span>
-              <a href="detalle-equipo.html" class="btn btn-secundario">Ver detalle</a>
-            </div>
-          </article>
-
-        </div>
+          </a>
+        </section>
+        <!-- ===== FIN MONITOR ===== -->
 
       </div>
     </main>

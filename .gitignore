@@ -1,2 +1,15 @@
 Documentacion/
 AGENTS.md
+
+# Archivos de Claude / asistentes IA
+CLAUDE.md
+CLAUDE.local.md
+.claude/
+.mcp.json
+
+# Datos de prueba locales (no se publican; ver pulserig-datos-prueba/COMMITS-DESCARTADOS.md)
+img/componentes/
+pulserig-datos-prueba/
+
+# Clon antiguo, ya no se usa
+PulseRig/

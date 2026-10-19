@@ -42,195 +42,268 @@
     </header>
     <!-- ===== FIN CABECERA ===== -->
 
+    <!--
+      FICHA DE EQUIPO · Rediseño "hoja de calco"
+      Bloques, de arriba abajo:
+        1. Cabecera de la ficha: nombre del equipo y botones para añadir datos.
+        2. Resumen: despiece de la torre + panel con el Health Score.
+        3. Lista de piezas: los números coinciden con los del despiece.
+        4. Temperaturas (monitor) y bitácora de mantenimiento.
+      Los colores de estado se ponen con data-estado (ver styles.css, ESTADOS).
+    -->
     <main>
-      <div class="contenedor">
+      <div class="contenedor ficha">
 
-        <a href="equipos.html" class="enlace-volver">&larr; Mis equipos</a>
-        <h1>Torre principal</h1>
+        <!-- ===== 1. CABECERA DE LA FICHA ===== -->
+        <div>
+          <a href="equipos.html" class="enlace-volver">&larr; Mis equipos</a>
+          <div class="cabecera-ficha">
+            <div>
+              <p class="etiqueta-dato">Plano PR-0001 · Torre · montada en 03/2024</p>
+              <h1>Torre principal</h1>
+            </div>
+            <div class="cabecera-ficha__acciones">
+              <button type="button" class="btn btn-secundario">Añadir mantenimiento</button>
+              <button type="button" class="btn btn-primario">Añadir componente</button>
+            </div>
+          </div>
+        </div>
 
-        <div class="layout-con-lateral" style="margin-top: var(--espacio-lg);">
+        <!-- ===== 2. RESUMEN: DESPIECE + PANEL DE SALUD ===== -->
+        <section class="ficha-resumen">
 
-          <!-- Columna lateral: Health Score + datos generales -->
-          <aside class="detalle-equipo__lateral">
-            <div class="tarjeta tarjeta--estado-sano">
-              <div class="gauge" style="--puntuacion:85; --color-gauge: var(--sano);">
-                <div class="gauge__interior">
-                  <span class="gauge__puntuacion cifra">85</span>
-                  <span class="gauge__max">/100</span>
-                </div>
+          <figure class="despiece">
+            <div class="despiece__dibujo">
+              <svg viewBox="0 0 620 440" role="img" aria-label="Despiece de la Torre principal con sus seis componentes">
+
+                <!-- Piezas de la torre (solo contorno) -->
+                <g class="despiece__piezas">
+                  <rect x="30" y="16" width="250" height="408"></rect>   <!-- caja -->
+                  <rect x="56" y="30" width="196" height="18"></rect>    <!-- radiador de la Kraken -->
+                  <circle cx="104" cy="39" r="6"></circle>
+                  <circle cx="154" cy="39" r="6"></circle>
+                  <circle cx="204" cy="39" r="6"></circle>
+                  <rect x="48" y="62" width="200" height="236" stroke-dasharray="5 4"></rect> <!-- placa base -->
+                  <rect x="112" y="96" width="64" height="64"></rect>    <!-- CPU -->
+                  <rect x="196" y="84" width="8" height="90"></rect>     <!-- RAM -->
+                  <rect x="210" y="84" width="8" height="90"></rect>
+                  <rect x="80" y="234" width="236" height="44"></rect>   <!-- GPU -->
+                  <circle cx="146" cy="256" r="16"></circle>
+                  <circle cx="222" cy="256" r="16"></circle>
+                  <rect x="48" y="336" width="120" height="70"></rect>   <!-- fuente -->
+                  <circle cx="108" cy="371" r="22"></circle>
+                </g>
+
+                <!-- LED de la CPU: parpadea como un latido -->
+                <circle class="latido" data-estado="sano" cx="144" cy="128" r="4"></circle>
+
+                <!-- Líneas que unen cada pieza con su etiqueta -->
+                <g class="despiece__lineas">
+                  <polyline points="176,120 300,58 340,58"></polyline>
+                  <polyline points="218,100 300,122 340,122"></polyline>
+                  <polyline points="248,200 300,186 340,186"></polyline>
+                  <polyline points="316,256 340,250"></polyline>
+                  <polyline points="168,371 300,314 340,314"></polyline>
+                  <polyline points="252,39 300,378 340,378"></polyline>
+                </g>
+
+                <!-- Etiquetas: número, modelo y garantía (el color lo da data-estado) -->
+                <g class="despiece__etiquetas">
+                  <circle cx="352" cy="58" r="11"></circle><text class="despiece__num" x="352" y="62">1</text>
+                  <text class="despiece__modelo" x="372" y="56">AMD Ryzen 7 7800X3D</text>
+                  <text data-estado="sano" x="372" y="74">garantía hasta 03/2029</text>
+
+                  <circle cx="352" cy="122" r="11"></circle><text class="despiece__num" x="352" y="126">2</text>
+                  <text class="despiece__modelo" x="372" y="120">32 GB DDR5 6000MHz</text>
+                  <text data-estado="critico" x="372" y="138">garantía caducada</text>
+
+                  <circle cx="352" cy="186" r="11"></circle><text class="despiece__num" x="352" y="190">3</text>
+                  <text class="despiece__modelo" x="372" y="184">ASUS ROG Strix B650-A</text>
+                  <text data-estado="critico" x="372" y="202">sin garantía</text>
+
+                  <circle cx="352" cy="250" r="11"></circle><text class="despiece__num" x="352" y="254">4</text>
+                  <text class="despiece__modelo" x="372" y="248">NVIDIA RTX 4070</text>
+                  <text data-estado="critico" x="372" y="266">garantía caducada</text>
+
+                  <circle cx="352" cy="314" r="11"></circle><text class="despiece__num" x="352" y="318">5</text>
+                  <text class="despiece__modelo" x="372" y="312">Corsair RM750x</text>
+                  <text data-estado="sano" x="372" y="330">garantía hasta 03/2029</text>
+
+                  <circle cx="352" cy="378" r="11"></circle><text class="despiece__num" x="352" y="382">6</text>
+                  <text class="despiece__modelo" x="372" y="376">NZXT Kraken 280mm</text>
+                  <text data-estado="atencion" x="372" y="394">caduca en 11/2026</text>
+                </g>
+              </svg>
+            </div>
+          </figure>
+
+          <!-- Panel de salud: puntuación grande, pulso y datos del equipo -->
+          <aside class="panel-salud">
+            <div class="panel-salud__cabecera" data-estado="sano">
+              <p class="etiqueta-dato">Health Score</p>
+              <p><span class="panel-salud__cifra">85</span> <span class="etiqueta-dato">/ 100 · Sano</span></p>
+              <svg viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path class="pulso pulso--lento" d="M0 24h40l6-4 6 4h10l5 10 8-30 8 26 5-6h22l8-5 8 5h44l6-4 6 4h10l5 10 8-30 8 26 5-6h22l8-5 8 5h34"></path></svg>
+            </div>
+            <div class="tarjeta__cuerpo">
+              <div class="tarjeta__fila">
+                <span class="tarjeta__fila-etiqueta">Tipo</span>
+                <span class="tarjeta__fila-valor">Torre</span>
               </div>
-              <div style="text-align:center; margin-bottom: var(--espacio-md);">
-                <span class="badge-estado badge-sano">Sano</span>
+              <div class="tarjeta__fila">
+                <span class="tarjeta__fila-etiqueta">Fecha de montaje</span>
+                <span class="tarjeta__fila-valor">03/2024</span>
               </div>
-              <div class="tarjeta__cuerpo">
-                <div class="tarjeta__fila">
-                  <span class="tarjeta__fila-etiqueta">Tipo</span>
-                  <span class="tarjeta__fila-valor">Torre</span>
-                </div>
-                <div class="tarjeta__fila">
-                  <span class="tarjeta__fila-etiqueta">Fecha de montaje</span>
-                  <span class="tarjeta__fila-valor cifra">03/2024</span>
-                </div>
-                <div class="tarjeta__fila">
-                  <span class="tarjeta__fila-etiqueta">Componentes</span>
-                  <span class="tarjeta__fila-valor cifra">6</span>
-                </div>
-                <div class="tarjeta__fila">
-                  <span class="tarjeta__fila-etiqueta">Garantías activas</span>
-                  <span class="tarjeta__fila-valor cifra">2</span>
-                </div>
+              <div class="tarjeta__fila">
+                <span class="tarjeta__fila-etiqueta">Componentes</span>
+                <span class="tarjeta__fila-valor">6</span>
+              </div>
+              <div class="tarjeta__fila">
+                <span class="tarjeta__fila-etiqueta">Garantías activas</span>
+                <span class="tarjeta__fila-valor">2</span>
+              </div>
+              <div class="tarjeta__fila">
+                <span class="tarjeta__fila-etiqueta">Último mantenimiento</span>
+                <span class="tarjeta__fila-valor">hace 12 días</span>
               </div>
             </div>
           </aside>
+        </section>
+        <!-- ===== FIN RESUMEN ===== -->
 
-          <!-- Columna principal -->
-          <div class="detalle-equipo__principal">
-
-            <section class="tarjeta">
-              <div class="tarjeta__cabecera">
-                <div class="tarjeta__cabecera-titulos">
-                  <h2>Componentes</h2>
-                </div>
-              </div>
-              <div class="lista-componentes">
-
-                <div class="componente-fila">
-                  <div class="componente-fila__info">
-                    <div>
-                      <p class="componente-fila__nombre">AMD Ryzen 7 7800X3D</p>
-                      <p class="componente-fila__meta">CPU · Garantía hasta 03/2029</p>
-                    </div>
-                    <span class="badge-estado badge-sano">Garantía activa</span>
-                  </div>
-                  <div class="componente-fila__acciones">
-                    <button type="button" class="btn btn-secundario">Publicar en Outlet</button>
-                    <button type="button" class="btn btn-secundario">Mover al almacén</button>
-                  </div>
-                </div>
-
-                <div class="componente-fila">
-                  <div class="componente-fila__info">
-                    <div>
-                      <p class="componente-fila__nombre">NVIDIA RTX 4070</p>
-                      <p class="componente-fila__meta">GPU · Garantía caducada en 03/2026</p>
-                    </div>
-                    <span class="badge-estado badge-critico">Garantía caducada</span>
-                  </div>
-                  <div class="componente-fila__acciones">
-                    <button type="button" class="btn btn-secundario">Publicar en Outlet</button>
-                    <button type="button" class="btn btn-secundario">Mover al almacén</button>
-                  </div>
-                </div>
-
-                <div class="componente-fila">
-                  <div class="componente-fila__info">
-                    <div>
-                      <p class="componente-fila__nombre">32 GB DDR5 6000MHz</p>
-                      <p class="componente-fila__meta">RAM · Garantía caducada en 03/2026</p>
-                    </div>
-                    <span class="badge-estado badge-critico">Garantía caducada</span>
-                  </div>
-                  <div class="componente-fila__acciones">
-                    <button type="button" class="btn btn-secundario">Publicar en Outlet</button>
-                    <button type="button" class="btn btn-secundario">Mover al almacén</button>
-                  </div>
-                </div>
-
-                <div class="componente-fila">
-                  <div class="componente-fila__info">
-                    <div>
-                      <p class="componente-fila__nombre">ASUS ROG Strix B650-A</p>
-                      <p class="componente-fila__meta">Placa base · Sin garantía</p>
-                    </div>
-                    <span class="badge-estado badge-critico">Sin garantía</span>
-                  </div>
-                  <div class="componente-fila__acciones">
-                    <button type="button" class="btn btn-secundario">Publicar en Outlet</button>
-                    <button type="button" class="btn btn-secundario">Mover al almacén</button>
-                  </div>
-                </div>
-
-                <div class="componente-fila">
-                  <div class="componente-fila__info">
-                    <div>
-                      <p class="componente-fila__nombre">Corsair RM750x</p>
-                      <p class="componente-fila__meta">Fuente · Garantía hasta 03/2029</p>
-                    </div>
-                    <span class="badge-estado badge-sano">Garantía activa</span>
-                  </div>
-                  <div class="componente-fila__acciones">
-                    <button type="button" class="btn btn-secundario">Publicar en Outlet</button>
-                    <button type="button" class="btn btn-secundario">Mover al almacén</button>
-                  </div>
-                </div>
-
-                <div class="componente-fila">
-                  <div class="componente-fila__info">
-                    <div>
-                      <p class="componente-fila__nombre">NZXT Kraken 280mm</p>
-                      <p class="componente-fila__meta">Refrigeración · Garantía hasta 11/2026</p>
-                    </div>
-                    <span class="badge-estado badge-atencion">Garantía próxima a caducar</span>
-                  </div>
-                  <div class="componente-fila__acciones">
-                    <button type="button" class="btn btn-secundario">Publicar en Outlet</button>
-                    <button type="button" class="btn btn-secundario">Mover al almacén</button>
-                  </div>
-                </div>
-
-              </div>
-            </section>
-
-            <section class="tarjeta">
-              <div class="tarjeta__cabecera">
-                <div class="tarjeta__cabecera-titulos">
-                  <h2>Temperaturas</h2>
-                </div>
-              </div>
-              <div class="tarjeta__cuerpo">
-                <div class="tarjeta__fila">
-                  <span class="tarjeta__fila-etiqueta">Última lectura CPU</span>
-                  <span class="tarjeta__fila-valor cifra">58 °C</span>
-                </div>
-                <div class="tarjeta__fila">
-                  <span class="tarjeta__fila-etiqueta">Última lectura GPU</span>
-                  <span class="tarjeta__fila-valor cifra">61 °C</span>
-                </div>
-              </div>
-              <div class="grafico-placeholder" style="margin-top: var(--espacio-md);">
-                Gráfico de evolución CPU / GPU
-              </div>
-            </section>
-
-            <section class="tarjeta">
-              <div class="tarjeta__cabecera">
-                <div class="tarjeta__cabecera-titulos">
-                  <h2>Historial de mantenimiento</h2>
-                </div>
-              </div>
-              <div>
-                <div class="historial-item">
-                  <span class="historial-item__tipo">Limpieza general</span>
-                  <span class="historial-item__fecha cifra">hace 12 días</span>
-                </div>
-                <div class="historial-item">
-                  <span class="historial-item__tipo">Actualización de drivers GPU</span>
-                  <span class="historial-item__fecha cifra">hace 2 meses</span>
-                </div>
-                <div class="historial-item">
-                  <span class="historial-item__tipo">Cambio de pasta térmica</span>
-                  <span class="historial-item__fecha cifra">hace 8 meses</span>
-                </div>
-                <div class="historial-item">
-                  <span class="historial-item__tipo">Actualización de BIOS</span>
-                  <span class="historial-item__fecha cifra">enero 2025</span>
-                </div>
-              </div>
-            </section>
-
+        <!-- ===== 3. LISTA DE PIEZAS ===== -->
+        <section>
+          <div class="titulo-bloque">
+            <h2>Lista de piezas</h2>
+            <p class="etiqueta-dato">Los números coinciden con el despiece</p>
           </div>
 
-        </div>
+          <div class="pieza">
+            <span class="pieza__num">1</span>
+            <div>
+              <p class="pieza__nombre">AMD Ryzen 7 7800X3D</p>
+              <p class="texto-pequeno">CPU · <span data-estado="sano">garantía hasta 03/2029</span></p>
+            </div>
+            <div class="pieza__acciones">
+              <button type="button" class="btn btn-secundario">Publicar en Outlet</button>
+              <button type="button" class="btn btn-secundario">Mover al almacén</button>
+            </div>
+          </div>
+
+          <div class="pieza">
+            <span class="pieza__num">2</span>
+            <div>
+              <p class="pieza__nombre">32 GB DDR5 6000MHz</p>
+              <p class="texto-pequeno">RAM · <span data-estado="critico">garantía caducada en 03/2026</span></p>
+            </div>
+            <div class="pieza__acciones">
+              <button type="button" class="btn btn-secundario">Publicar en Outlet</button>
+              <button type="button" class="btn btn-secundario">Mover al almacén</button>
+            </div>
+          </div>
+
+          <div class="pieza">
+            <span class="pieza__num">3</span>
+            <div>
+              <p class="pieza__nombre">ASUS ROG Strix B650-A</p>
+              <p class="texto-pequeno">Placa base · <span data-estado="critico">sin garantía</span></p>
+            </div>
+            <div class="pieza__acciones">
+              <button type="button" class="btn btn-secundario">Publicar en Outlet</button>
+              <button type="button" class="btn btn-secundario">Mover al almacén</button>
+            </div>
+          </div>
+
+          <div class="pieza">
+            <span class="pieza__num">4</span>
+            <div>
+              <p class="pieza__nombre">NVIDIA RTX 4070</p>
+              <p class="texto-pequeno">GPU · <span data-estado="critico">garantía caducada en 03/2026</span></p>
+            </div>
+            <div class="pieza__acciones">
+              <button type="button" class="btn btn-secundario">Publicar en Outlet</button>
+              <button type="button" class="btn btn-secundario">Mover al almacén</button>
+            </div>
+          </div>
+
+          <div class="pieza">
+            <span class="pieza__num">5</span>
+            <div>
+              <p class="pieza__nombre">Corsair RM750x</p>
+              <p class="texto-pequeno">Fuente · <span data-estado="sano">garantía hasta 03/2029</span></p>
+            </div>
+            <div class="pieza__acciones">
+              <button type="button" class="btn btn-secundario">Publicar en Outlet</button>
+              <button type="button" class="btn btn-secundario">Mover al almacén</button>
+            </div>
+          </div>
+
+          <div class="pieza">
+            <span class="pieza__num">6</span>
+            <div>
+              <p class="pieza__nombre">NZXT Kraken 280mm</p>
+              <p class="texto-pequeno">Refrigeración · <span data-estado="atencion">garantía hasta 11/2026, a punto de caducar</span></p>
+            </div>
+            <div class="pieza__acciones">
+              <button type="button" class="btn btn-secundario">Publicar en Outlet</button>
+              <button type="button" class="btn btn-secundario">Mover al almacén</button>
+            </div>
+          </div>
+        </section>
+        <!-- ===== FIN LISTA DE PIEZAS ===== -->
+
+        <!-- ===== 4. TEMPERATURAS Y BITÁCORA ===== -->
+        <section class="ficha-doble">
+
+          <!-- Temperaturas: un canal del monitor por sensor.
+               Escala del trazo: 40 °C abajo (y=60) y 85 °C arriba (y=6, línea discontinua).
+               Cada grado sube 1,2 unidades: y = 60 - (temperatura - 40) * 1,2 -->
+          <div>
+            <h2>Temperaturas</h2>
+            <div class="monitor">
+              <p class="monitor__cabecera etiqueta-dato">
+                <span><span class="latido" data-estado="sano">●</span> Últimos 7 días</span>
+                <span>Límite 85 °C</span>
+              </p>
+
+              <div class="monitor__canal" data-estado="sano">
+                <div>
+                  <strong>CPU</strong>
+                  <span class="etiqueta-dato">en carga</span>
+                </div>
+                <svg viewBox="0 0 300 60" preserveAspectRatio="none" role="img" aria-label="CPU: 54, 56, 61, 59, 57, 60 y 58 °C">
+                  <line class="traza traza--limite" data-estado="atencion" x1="0" y1="6" x2="300" y2="6"></line>
+                  <polyline class="traza" points="0,43.2 50,40.8 100,34.8 150,37.2 200,39.6 250,36 300,38.4"></polyline>
+                </svg>
+                <p class="monitor__lectura"><span class="monitor__cifra">58</span> °C</p>
+              </div>
+
+              <div class="monitor__canal" data-estado="sano">
+                <div>
+                  <strong>GPU</strong>
+                  <span class="etiqueta-dato">en carga</span>
+                </div>
+                <svg viewBox="0 0 300 60" preserveAspectRatio="none" role="img" aria-label="GPU: 63, 60, 66, 62, 64, 59 y 61 °C">
+                  <line class="traza traza--limite" data-estado="atencion" x1="0" y1="6" x2="300" y2="6"></line>
+                  <polyline class="traza" points="0,32.4 50,36 100,28.8 150,33.6 200,31.2 250,37.2 300,34.8"></polyline>
+                </svg>
+                <p class="monitor__lectura"><span class="monitor__cifra">61</span> °C</p>
+              </div>
+            </div>
+            <p class="texto-pequeno">Lecturas anteriores de ejemplo.</p>
+          </div>
+
+          <!-- Bitácora: cada mantenimiento con su fecha -->
+          <div>
+            <h2>Bitácora de mantenimiento</h2>
+            <div class="bitacora">
+              <div class="bitacora__entrada"><span class="cifra">hace 12 días</span><span>Limpieza general</span></div>
+              <div class="bitacora__entrada"><span class="cifra">hace 2 meses</span><span>Actualización de drivers GPU</span></div>
+              <div class="bitacora__entrada"><span class="cifra">hace 8 meses</span><span>Cambio de pasta térmica</span></div>
+              <div class="bitacora__entrada"><span class="cifra">enero 2025</span><span>Actualización de BIOS</span></div>
+            </div>
+          </div>
+        </section>
+        <!-- ===== FIN TEMPERATURAS Y BITÁCORA ===== -->
 
       </div>
     </main>

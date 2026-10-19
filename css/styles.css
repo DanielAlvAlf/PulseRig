@@ -1,37 +1,49 @@
 /* ==========================================================================
    PulseRig — hoja de estilos propia
-   Panel de diagnóstico técnico: el color comunica estado, no decora.
-   Orden: variables → reset → tipografía → layout → componentes → páginas → media queries
+   Rediseño "hoja de calco": la web parece un plano técnico azul con
+   trazos blancos. El color sigue comunicando estado, no decora.
+   Orden: variables → reset → tipografía → estados → layout → componentes
+          → páginas → media queries
    ========================================================================== */
 
 /* ==========================================================================
    1. VARIABLES
+   (Los nombres se mantienen del diseño anterior para no tocar el resto
+   de páginas; solo cambian los valores.)
    ========================================================================== */
 :root {
-  /* Color — base */
-  --grafito: #1B2027;
-  --panel: #242B34;
-  --panel-alt: #2C333D;
-  --linea: #38414C;
-  --hielo: #E7EBEF;
-  --gris-frio: #8B96A3;
+  /* Color — base: papel de plano azul y trazo blanco */
+  --grafito: #163E73;      /* fondo del plano */
+  --panel: #12355F;        /* paneles y cabecera, un poco más oscuros */
+  --panel-alt: #1B4A86;    /* filas o zonas destacadas dentro de un panel */
+  --linea: #6F8FBA;        /* bordes y separadores */
+  --hielo: #F2F6FB;        /* trazo principal y texto */
+  --gris-frio: #A9C1DE;    /* texto secundario y etiquetas */
+  --panel-calco: rgba(10, 34, 66, 0.45); /* panel translúcido: deja ver la cuadrícula */
 
-  /* Color — estados (también son el color de marca: --sano) */
-  --sano: #4FD1A5;
-  --sano-fondo: rgba(79, 209, 165, 0.12);
-  --sano-borde: rgba(79, 209, 165, 0.3);
-  --sano-hover: #63D9B1;
+  /* Color — estados (aclarados para leerse sobre el azul) */
+  --sano: #6BE0B0;
+  --sano-fondo: rgba(107, 224, 176, 0.14);
+  --sano-borde: rgba(107, 224, 176, 0.4);
+  --sano-hover: #86E8C0;
 
-  --atencion: #E8A33D;
-  --atencion-fondo: rgba(232, 163, 61, 0.12);
-  --atencion-borde: rgba(232, 163, 61, 0.3);
+  --atencion: #FFC266;
+  --atencion-fondo: rgba(255, 194, 102, 0.14);
+  --atencion-borde: rgba(255, 194, 102, 0.4);
 
-  --critico: #E8594F;
-  --critico-fondo: rgba(232, 89, 79, 0.12);
-  --critico-borde: rgba(232, 89, 79, 0.3);
+  --critico: #FF8A80;
+  --critico-fondo: rgba(255, 138, 128, 0.14);
+  --critico-borde: rgba(255, 138, 128, 0.4);
 
-  /* Bordes y radios */
-  --radio: 4px;
+  /* Cuadrícula del papel de plano: líneas finas cada 20px, marcadas cada 100px */
+  --cuadricula:
+    linear-gradient(rgba(242, 246, 251, 0.08) 1px, transparent 1px) 0 0 / 100px 100px,
+    linear-gradient(90deg, rgba(242, 246, 251, 0.08) 1px, transparent 1px) 0 0 / 100px 100px,
+    linear-gradient(rgba(242, 246, 251, 0.04) 1px, transparent 1px) 0 0 / 20px 20px,
+    linear-gradient(90deg, rgba(242, 246, 251, 0.04) 1px, transparent 1px) 0 0 / 20px 20px;
+
+  /* Bordes y radios: esquinas casi rectas, como un dibujo técnico */
+  --radio: 2px;
   --borde: 1px solid var(--linea);
 
   /* Espaciado */
@@ -43,8 +55,9 @@
   --espacio-seccion: 4rem;
 
   /* Tipografía */
-  --fuente-sans: 'IBM Plex Sans', sans-serif;
-  --fuente-mono: 'IBM Plex Mono', monospace;
+  --fuente-titulos: 'Barlow Condensed', 'Arial Narrow', sans-serif; /* rótulos del plano */
+  --fuente-sans: 'Barlow', sans-serif;                               /* texto */
+  --fuente-mono: 'Space Mono', monospace;                            /* cifras y etiquetas */
 }
 
 /* ==========================================================================
@@ -60,7 +73,7 @@ html {
 
 body {
   margin: 0;
-  background-color: var(--grafito);
+  background: var(--cuadricula), var(--grafito);
   color: var(--hielo);
   font-family: var(--fuente-sans);
   font-size: 1rem;
@@ -107,25 +120,33 @@ table {
 /* ==========================================================================
    3. TIPOGRAFÍA
    ========================================================================== */
-h1 {
-  font-family: var(--fuente-sans);
-  font-weight: 600;
-  font-size: clamp(2.1rem, 5vw, 3rem);
+/* Títulos en letra estrecha y mayúsculas, como los rótulos de un plano */
+h1, h2, h3 {
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  line-height: 1;
   color: var(--hielo);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 5vw, 2.8rem);
+  text-transform: uppercase;
 }
 
 h2 {
-  font-family: var(--fuente-sans);
-  font-weight: 600;
-  font-size: 1.5rem;
-  color: var(--hielo);
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+
+/* Dentro de una tarjeta, el h2 hace de título de panel: más pequeño */
+.tarjeta h2 {
+  font-size: 1.6rem;
 }
 
 h3 {
-  font-family: var(--fuente-sans);
+  font-size: 1.6rem;
   font-weight: 600;
-  font-size: 1.1rem;
-  color: var(--hielo);
 }
 
 p {
@@ -164,107 +185,62 @@ p {
 }
 
 /* ==========================================================================
-   4. LAYOUT
+   ESTADOS
+   Cualquier elemento con data-estado="sano | atencion | critico" toma el
+   color de ese estado. Sirve para texto, trazos SVG (currentColor) y celdas.
+   Ejemplo: <span data-estado="atencion">caduca en 23 días</span>
    ========================================================================== */
+[data-estado="sano"]     { color: var(--sano); }
+[data-estado="atencion"] { color: var(--atencion); }
+[data-estado="critico"]  { color: var(--critico); }
 
-/* Fondo ambiente: estrellas a la deriva (tipo "warp") + brillo cálido de
-   fondo. La tonalidad de ambas capas depende del estado de salud que se
-   esté mostrando en la página (data-estado en .fondo-ambiente): Sano por
-   defecto, y Atención/Crítico cuando la página presenta un único equipo,
-   anuncio o resumen en ese estado. */
-.fondo-ambiente {
-  --rgb-estado: 79, 209, 165; /* sano, por defecto */
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-  background-color: var(--grafito);
+/* Línea de pulso (electrocardiograma). Se dibuja con el color del texto,
+   así que hereda el del data-estado que la rodea. Un trozo de la línea
+   se desplaza en bucle para que parezca un monitor. */
+.pulso {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke; /* grosor fijo aunque el SVG se estire */
+  stroke-dasharray: 520 180;
+  animation: pulso-avanza 2.6s linear infinite;
 }
 
-.fondo-ambiente[data-estado="atencion"] {
-  --rgb-estado: 232, 163, 61;
+.pulso--lento  { animation-duration: 3.4s; }  /* equipo sano: ritmo tranquilo */
+.pulso--rapido { animation-duration: 1.7s; }  /* equipo con aviso: ritmo agitado */
+
+.pulso--logo {
+  stroke-dasharray: 40 14;
+  animation-duration: 1.6s;
 }
 
-.fondo-ambiente[data-estado="critico"] {
-  --rgb-estado: 232, 89, 79;
+@keyframes pulso-avanza {
+  from { stroke-dashoffset: 700; }
+  to   { stroke-dashoffset: 0; }
 }
 
-/* Capas de estrellas: puntos de distinto tamaño y brillo (blancos y con
-   la tonalidad de estado), repetidos en mosaico y a la deriva. Dos capas
-   a velocidades distintas dan sensación de profundidad ("warp"). */
-.fondo-ambiente__estrellas {
-  position: absolute;
-  inset: -20%;
-  background-repeat: repeat;
-  background-image:
-    radial-gradient(1.6px 1.6px at 8% 22%, rgba(var(--rgb-estado), 0.9), transparent 60%),
-    radial-gradient(1.2px 1.2px at 32% 68%, rgba(231, 235, 239, 0.7), transparent 60%),
-    radial-gradient(1px 1px at 54% 12%, rgba(var(--rgb-estado), 0.5), transparent 60%),
-    radial-gradient(1.8px 1.8px at 71% 82%, rgba(231, 235, 239, 0.85), transparent 60%),
-    radial-gradient(1px 1px at 88% 34%, rgba(var(--rgb-estado), 0.35), transparent 60%),
-    radial-gradient(1.3px 1.3px at 18% 90%, rgba(231, 235, 239, 0.4), transparent 60%),
-    radial-gradient(1px 1px at 44% 46%, rgba(231, 235, 239, 0.25), transparent 60%),
-    radial-gradient(1.4px 1.4px at 64% 58%, rgba(var(--rgb-estado), 0.6), transparent 60%);
-  animation: deriva-estrellas 80s linear infinite;
+/* Latido: parpadeo suave para LEDs y puntos de "en vivo" */
+.latido {
+  fill: currentColor;
+  animation: latido 1.3s ease-in-out infinite;
 }
 
-.fondo-ambiente__estrellas--cerca {
-  background-size: 220px 220px;
+@keyframes latido {
+  50% { opacity: 0.25; }
 }
 
-.fondo-ambiente__estrellas--lejos {
-  background-size: 380px 380px;
-  opacity: 0.55;
-  animation-duration: 150s;
-  animation-direction: reverse;
-}
-
-@keyframes deriva-estrellas {
-  0% { transform: translate3d(0, 0, 0); opacity: 0.8; }
-  50% { transform: translate3d(-110px, -85px, 0); opacity: 1; }
-  100% { transform: translate3d(-220px, -170px, 0); opacity: 0.8; }
-}
-
-/* Brillo cálido anclado al borde inferior de la ventana, con pulso lento */
-.fondo-ambiente__brillo::before,
-.fondo-ambiente__brillo::after {
-  content: '';
-  position: absolute;
-  bottom: -25%;
-  left: 50%;
-  border-radius: 50%;
-  filter: blur(60px);
-  animation: pulso-brasa 7s ease-in-out infinite;
-}
-
-.fondo-ambiente__brillo::before {
-  width: 70vw;
-  height: 70vw;
-  transform: translateX(-60%);
-  background: rgba(var(--rgb-estado), 0.30);
-}
-
-.fondo-ambiente__brillo::after {
-  width: 45vw;
-  height: 45vw;
-  transform: translateX(-20%);
-  background: rgba(var(--rgb-estado), 0.22);
-  animation-delay: 1.8s;
-}
-
-@keyframes pulso-brasa {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
-}
-
+/* Quien prefiera menos movimiento ve las líneas quietas y completas */
 @media (prefers-reduced-motion: reduce) {
-  .fondo-ambiente__estrellas,
-  .fondo-ambiente__brillo::before,
-  .fondo-ambiente__brillo::after {
+  .pulso, .latido {
     animation: none;
+    stroke-dasharray: none;
   }
 }
+
+/* ==========================================================================
+   4. LAYOUT
+   ========================================================================== */
 
 .contenido {
   position: relative;
@@ -310,19 +286,28 @@ main {
 .marca {
   display: inline-flex;
   align-items: center;
-  gap: var(--espacio-xs);
-  font-family: var(--fuente-sans);
-  font-weight: 600;
-  font-size: 1.15rem;
+  gap: var(--espacio-sm);
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--hielo);
 }
 
-.marca__punto {
-  width: 8px;
-  height: 8px;
+/* Sello redondo del logo con el pulso dentro */
+.marca__sello {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid var(--hielo);
   border-radius: 50%;
-  background: var(--sano);
-  flex-shrink: 0;
+}
+
+.marca__sello svg {
+  width: 22px;
+  height: 14px;
 }
 
 .menu-toggle {
@@ -402,10 +387,6 @@ main {
   flex-direction: column;
   gap: var(--espacio-md);
   margin-bottom: var(--espacio-lg);
-}
-
-.cabecera-pagina__titulos h1 {
-  font-size: 1.6rem;
 }
 
 .cabecera-pagina__resumen {
@@ -556,7 +537,7 @@ main {
 
 /* --- Tarjeta --- */
 .tarjeta {
-  background: var(--panel);
+  background: var(--panel-calco);
   border: var(--borde);
   border-radius: var(--radio);
   padding: var(--espacio-lg);
@@ -604,6 +585,7 @@ main {
 
 .tarjeta__fila-valor {
   font-family: var(--fuente-mono);
+  font-size: 0.9rem; /* Space Mono es ancha: un punto menos para que quepa */
   color: var(--hielo);
   text-align: right;
 }
@@ -640,14 +622,16 @@ main {
   outline-offset: 2px;
 }
 
+/* Botón principal: relleno blanco sobre el azul, como una pieza recortada */
 .btn-primario {
-  background: var(--sano);
+  background: var(--hielo);
   color: var(--grafito);
   border-color: transparent;
 }
 
 .btn-primario:hover:not(:disabled) {
-  background: var(--sano-hover);
+  background: var(--sano);
+  color: var(--grafito);
 }
 
 .btn-secundario {
@@ -836,35 +820,235 @@ select.campo {
    6. PÁGINAS
    ========================================================================== */
 
-/* --- index.html --- */
-.hero {
-  padding: var(--espacio-seccion) 0;
-  text-align: left;
+/* --- index.html ---------------------------------------------------------
+   Bloques: hero (texto + despiece + cajetín), monitor, tabla y funciones.
+   ------------------------------------------------------------------------ */
+
+/* Hero: una columna en móvil, dos en escritorio (ver media queries) */
+.hero h1 {
+  font-size: clamp(2.8rem, 7vw, 5rem);
 }
 
-.hero__texto {
-  max-width: 640px;
+.hero {
+  display: grid;
+  gap: var(--espacio-seccion);
+  align-items: center;
+  padding: var(--espacio-seccion) 0 var(--espacio-xl);
 }
 
 .hero__descripcion {
-  margin-top: var(--espacio-md);
+  margin-top: var(--espacio-lg);
+  font-size: 1.15rem;
   color: var(--gris-frio);
-  font-size: 1.05rem;
+  max-width: 32em;
 }
 
 .hero__acciones {
   display: flex;
   flex-wrap: wrap;
   gap: var(--espacio-sm);
-  margin-top: var(--espacio-lg);
+  margin-top: var(--espacio-xl);
 }
 
+/* Despiece: dibujo SVG de la torre. Los colores salen de las variables */
+.despiece {
+  margin: 0;
+  min-width: 0;
+}
+
+/* En móvil el dibujo no se encoge más de 440px (las etiquetas serían
+   ilegibles): se desplaza en horizontal dentro de su caja */
+.despiece__dibujo {
+  overflow-x: auto;
+}
+
+.despiece__dibujo svg {
+  width: 100%;
+  min-width: 440px;
+  height: auto;
+  display: block;
+}
+
+.despiece__piezas,
+.despiece__etiquetas circle {
+  fill: none;
+  stroke: var(--hielo);
+  stroke-width: 1.5;
+}
+
+.despiece__lineas {
+  fill: none;
+  stroke: var(--gris-frio);
+}
+
+.despiece__etiquetas text {
+  font-family: var(--fuente-mono);
+  font-size: 12px;
+  fill: currentColor; /* toma el color de su data-estado */
+}
+
+.despiece__etiquetas .despiece__num {
+  fill: var(--hielo);
+  text-anchor: middle;
+}
+
+.despiece__etiquetas .despiece__modelo {
+  font-family: var(--fuente-sans);
+  font-size: 16px;
+  font-weight: 600;
+  fill: var(--hielo);
+}
+
+/* Cajetín: rejilla de celdas con borde blanco, como el de un plano */
+.cajetin {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: var(--espacio-sm) 0 var(--espacio-xs);
+  border-top: 1px solid var(--hielo);
+  border-left: 1px solid var(--hielo);
+}
+
+.cajetin > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  padding: var(--espacio-sm) var(--espacio-md);
+  border-right: 1px solid var(--hielo);
+  border-bottom: 1px solid var(--hielo);
+}
+
+.cajetin__puntuacion {
+  font-family: var(--fuente-titulos);
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+/* Última fila del cajetín: ocupa todo el ancho y lleva el pulso */
+.cajetin .cajetin__pulso {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--espacio-md);
+}
+
+.cajetin__pulso svg {
+  flex: 1;
+  height: 34px;
+}
+
+/* Secciones de la portada */
 .seccion-publica {
   padding-top: var(--espacio-seccion);
 }
 
 .seccion-publica__intro {
   margin-bottom: var(--espacio-lg);
+}
+
+.seccion-publica__intro p {
+  margin-top: var(--espacio-sm);
+  max-width: 48em;
+}
+
+/* Monitor de constantes: panel con un canal (fila) por equipo */
+.monitor {
+  border: 1.5px solid var(--hielo);
+  background: var(--panel-calco);
+}
+
+.monitor__cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--espacio-xs);
+  padding: var(--espacio-sm) var(--espacio-lg);
+  border-bottom: 1.5px solid var(--hielo);
+}
+
+/* Canal: nombre | pulso | puntuación. En móvil el pulso baja a su propia fila */
+.monitor__canal {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--espacio-sm) var(--espacio-lg);
+  align-items: center;
+  padding: var(--espacio-md) var(--espacio-lg);
+  border-bottom: 1px dashed var(--linea);
+}
+
+.monitor__canal:last-child {
+  border-bottom: none;
+}
+
+.monitor__canal strong {
+  display: block;
+  color: var(--hielo);
+}
+
+.monitor__canal .etiqueta-dato {
+  color: inherit; /* el detalle va en el color del estado */
+}
+
+.monitor__canal svg {
+  grid-column: 1 / -1;
+  order: 3;
+  width: 100%;
+  height: 60px;
+}
+
+.monitor__lectura {
+  text-align: right;
+  font-family: var(--fuente-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.monitor__cifra {
+  display: block;
+  font-family: var(--fuente-titulos);
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Tabla con aspecto de lista de piezas de un plano */
+.tabla-plano {
+  overflow-x: auto;
+  border: 1px solid var(--hielo);
+}
+
+.tabla-plano table {
+  min-width: 640px;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabla-plano th,
+.tabla-plano td {
+  padding: 0.75rem var(--espacio-md);
+  border-bottom: 1px dashed var(--linea);
+  text-align: left;
+}
+
+.tabla-plano th {
+  font-family: var(--fuente-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--gris-frio);
+}
+
+.tabla-plano tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Tarjetas de funciones: recuadro discontinuo, como una zona acotada */
+.funcion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-sm);
+  padding: var(--espacio-lg);
+  border: 1.5px dashed var(--hielo);
 }
 
 /* --- login / registro --- */
@@ -905,7 +1089,7 @@ select.campo {
 /* --- equipos.html / almacen.html --- */
 .tarjeta-equipo__tipo-fecha {
   display: flex;
-  justify-content: space-between;
+  gap: var(--espacio-sm);
   font-size: 0.8rem;
   color: var(--gris-frio);
   margin-bottom: var(--espacio-md);
@@ -1228,6 +1412,21 @@ select.campo {
 
   .rejilla {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Portada: texto y despiece lado a lado */
+  .hero {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Monitor: nombre | pulso | puntuación en una sola fila */
+  .monitor__canal {
+    grid-template-columns: 200px 1fr 120px;
+  }
+
+  .monitor__canal svg {
+    grid-column: auto;
+    order: 0;
   }
 
   .layout-con-lateral {
